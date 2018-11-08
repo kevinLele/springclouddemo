@@ -59,31 +59,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         };
     }
 
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-
-        try {
-            Resource resource = new ClassPathResource("AuthServer_public.key");
-            String publicKey = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
-            converter.setVerifierKey(publicKey);
-
-            return converter;
-        } catch (final IOException e) {
-            throw new RuntimeException("用于进行验证的公钥读取发生错误！", e);
-        }
-    }
-
-    @Bean
-    public TokenStore jwtTokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
-    }
-
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.resourceId("resourceServer1")
                 .stateless(true)
-                .tokenStore(jwtTokenStore())
                 .tokenExtractor(cookieTokenExtractor());
     }
 
