@@ -1,0 +1,6 @@
+server:
+  port: 18020
+
+spring:
+  application:
+    name: micro-service
