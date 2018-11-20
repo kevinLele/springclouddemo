@@ -1,0 +1,21 @@
+server:
+  port: 18080
+
+spring:
+  application:
+    name: register-center
+
+eureka:
+  instance:
+    hostname: 127.0.0.1
+  client:
+    # 由于自己就是服务器，不需要注册到自己
+    register-with-eureka: false
+    # 由于自己就是服务器，不需要从服务器获取注册信息
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+  server:
+    # 清理间隔（单位毫秒，默认是60*1000），开发环境设置如下可快速移除不可用的服务
+    eviction-interval-timer-in-ms: 5000
+    enable-self-preservation: true

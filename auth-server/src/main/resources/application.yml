@@ -1,3 +1,6 @@
+server:
+  port: 80
+
 spring:
   # 数据库连接池配置
   datasource:
